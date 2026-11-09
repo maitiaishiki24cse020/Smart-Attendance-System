@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <h2>Smart Attendance</h2>
+        <a href="/">Home</a>
+    </nav>
+
+    <section class="hero">
+        <h1>Smart Attendance System</h1>
+        <p>AI-Based Face Recognition Attendance Management</p>
+
+        <div class="buttons">
+            <a href="/login" class="btn">Admin Login</a>
+            <a href="/register" class="btn secondary">Student Registration</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Our Features</h2>
+
+        <div class="feature-container">
+            <div class="feature">
+                <h3>Face Recognition</h3>
+                <p>Automatically recognize students using a camera.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Automatic Attendance</h3>
+                <p>Record student attendance automatically.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Attendance Reports</h3>
+                <p>View and manage attendance records easily.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Smart Attendance System | CSE Project</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Student Registration</h1>
+        <p>Register your details</p>
+
+        <form action="/register" method="POST" enctype="multipart/form-data">
+
+            <input type="text" name="name"
+                   placeholder="Student Name" required>
+
+            <input type="text" name="roll_no"
+                   placeholder="Roll Number" required>
+
+            <input type="text" name="department"
+                   placeholder="Department" required>
+
+            <input type="email" name="email"
+                   placeholder="Email Address" required>
+
+            <label>Upload Your Face Photo</label>
+            <input type="file" name="photo"
+                   accept="image/*" required>
+
+            <button type="submit">Register Student</button>
+
+        </form>
+
+        <a href="/">Back to Home</a>
+    </div>
+
+</body>
+</html>

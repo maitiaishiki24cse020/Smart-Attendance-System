@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Attendance - Admin Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .navbar {
+            background: #172554;
+            color: white;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            font-size: 25px;
+        }
+
+        .logout-form {
+            margin: 0;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 23px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        .container {
+            max-width: 1350px;
+            width: 90%;
+            margin: 48px auto;
+        }
+
+        .welcome {
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 32px;
+            border-radius: 17px;
+            border-left: 6px solid #2563eb;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+        }
+
+        .stat-card h3 {
+            color: #64748b;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card p {
+            color: #172554;
+            font-size: 34px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 23px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+        }
+
+        .action-card h3 {
+            color: #1d4ed8;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .action-card p {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 48px;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .attendance-btn {
+            background: #16a34a;
+        }
+
+        .attendance-btn:hover {
+            background: #15803d;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 80px;
+            padding-bottom: 25px;
+        }
+
+        .flash-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .stats, .actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 18px;
+            }
+
+            .navbar h2 {
+                font-size: 19px;
+            }
+
+            .container {
+                margin-top: 30px;
+            }
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .stats, .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>AI Smart Attendance</h2>
+
+        <form class="logout-form"
+              action="{{ url_for('logout') }}"
+              method="POST">
+
+            <button type="submit" class="logout-btn">
+                Logout
+            </button>
+
+        </form>
+    </nav>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h1>Admin Dashboard</h1>
+            <p>Welcome back, Admin!</p>
+        </section>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <h3>Total Students</h3>
+                <p>{{ total_students }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Present Today</h3>
+                <p>{{ present_today }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Absent Today</h3>
+                <p>{{ absent_today }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Attendance Percentage</h3>
+                <p>{{ attendance_percentage }}%</p>
+            </div>
+
+        </section>
+
+        <h2 class="section-title">Manage System</h2>
+
+        <section class="actions">
+
+            <div class="action-card">
+                <h3>Student Management</h3>
+                <p>View, search and manage registered students.</p>
+                <a href="{{ url_for('students') }}" class="action-btn">
+                    View Students
+                </a>
+            </div>
+
+            <div class="action-card">
+                <h3>Register Student</h3>
+                <p>Add a new student to the attendance system.</p>
+                <a href="{{ url_for('register') }}" class="action-btn">
+                    Register
+                </a>
+            </div>
+
+            <div class="action-card">
+                <h3>Attendance Records</h3>
+                <p>View student attendance and daily records.</p>
+                <a href="{{ url_for('attendance') }}" class="action-btn">
+                    View Attendance
+                </a>
+            </div>
+
+            <div class="action-card">
+                <h3>Face Recognition</h3>
+                <p>Start webcam-based automatic attendance.</p>
+
+                <form method="POST"
+                      action="{{ url_for('start_attendance') }}">
+
+                    <button type="submit"
+                            class="action-btn attendance-btn">
+                        Start Attendance
+                    </button>
+
+                </form>
+            </div>
+
+        </section>
+
+        <footer class="footer">
+            AI-Based Smart Attendance System | Admin Panel
+        </footer>
+
+    </main>
+
+</body>
+</html>

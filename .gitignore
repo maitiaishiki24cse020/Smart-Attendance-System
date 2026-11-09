@@ -1,0 +1,26 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Database
+attendance.db
+*.db
+
+# Student photos and biometric data
+student_faces/
+student_images/
+
+# Trained face recognition files
+face_model.yml
+student_labels.npy
+
+# Secret files
+.env
+
+# VS Code settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db

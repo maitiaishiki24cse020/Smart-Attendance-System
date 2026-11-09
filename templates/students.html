@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <h2>Smart Attendance</h2>
+        <a href="/">Home</a>
+    </nav>
+
+    <div class="students-page">
+
+        <h1>Student Management</h1>
+        <p>View and manage registered students</p>
+
+        <div class="student-count">
+            <h2>{{ students|length }}</h2>
+            <p>Total Registered Students</p>
+        </div>
+
+        <input type="text"
+               id="search"
+               placeholder="Search by name or roll number..."
+               onkeyup="searchStudents()">
+
+        <div class="table-container">
+            <table id="studentTable">
+
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Roll Number</th>
+                        <th>Department</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for student in students %}
+
+                    <tr>
+                        <td>
+                            <img src="{{ url_for('student_image', filename=student[5].split('/')[-1]) }}"
+                                 class="student-photo">
+                        </td>
+
+                        <td>{{ student[1] }}</td>
+                        <td>{{ student[2] }}</td>
+                        <td>{{ student[3] }}</td>
+                        <td>{{ student[4] }}</td>
+
+                        <td>
+                            <form action="{{ url_for('delete_student_route', student_id=student[0]) }}" method="POST">
+                                  method="POST"
+                                  onsubmit="return confirm('Delete this student?');">
+
+                                <button type="submit" class="delete-btn">
+                                    Delete
+                                </button>
+
+                            </form>
+                        </td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="6">No students registered yet.</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/register" class="btn">Add New Student</a>
+
+    </div>
+
+    <script>
+        function searchStudents() {
+
+            let input = document.getElementById("search");
+            let filter = input.value.toLowerCase();
+
+            let table = document.getElementById("studentTable");
+            let rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+
+                let text = rows[i].innerText.toLowerCase();
+
+                rows[i].style.display =
+                    text.includes(filter) ? "" : "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
