@@ -38,3 +38,19 @@ Smart_Attendance_System/
 ├── templates/
 ├── static/
 └── .gitignore
+## Screenshots
+
+### Login Page
+![Login Page](screenshots/login.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Student Registration
+![Register Page](screenshots/register.png)
+
+### Students List
+![Students Page](screenshots/students.png)
+
+### Attendance Records
+![Attendance Page](screenshots/attendance.png)
